@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ExampleItem> mExampleList;
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private Button buttonInsert;
@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyItemRemoved(position);
     }
 
+    public void changeItem(int position, String text){
+        mExampleList.get(position).changeText1(text);
+        mAdapter.notifyItemChanged(position);
+    }
+
     private void buildRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -76,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                changeItem(position, "Clicked");
+            }
+        });
     }
 
     private void createExampleList() {
