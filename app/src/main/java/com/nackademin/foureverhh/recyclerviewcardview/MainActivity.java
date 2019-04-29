@@ -29,14 +29,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        createExampleList();
+        buildRecyclerView();
+        setButtons();
+
+    }
+
+    private void setButtons() {
+
         buttonInsert = findViewById(R.id.button_insert);
         buttonRemove = findViewById(R.id.button_remove);
         editTextInsert = findViewById(R.id.editText_insert);
         editTextRemove = findViewById(R.id.editText_remove);
-
-        createExampleList();
-        buildRecyclerView();
-
 
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 removeItem(position);
             }
         });
-
     }
 
     public void insertItem(int position){
@@ -86,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 changeItem(position, "Clicked");
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                removeItem(position);
             }
         });
     }
